@@ -1,5 +1,5 @@
-This project is trying to do a ETL job for new york taxi records. This bascially is a practice when I was learning in DataZoomcamp https://github.com/DataTalksClub/data-engineering-zoomcamp.
-So I'm trying to utilise all the things I learned from this course to make a project. And this dataset is also what this course used, so there are some codes I copied from them.  
+This project is trying to do ETL work on New York taxi records. This is basically a practice when I was studying at DataZoomcamp https://github.com/DataTalksClub/data-engineering-zoomcamp.
+So I tried to make a project using everything I learned from this course. And this dataset is also used for this course, so I copied some code from it.
 The tech tools this project used including   
 Docker --> to configure   
 airflow --> to control ETL job   
