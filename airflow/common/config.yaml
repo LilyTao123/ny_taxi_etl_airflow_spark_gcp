@@ -1,0 +1,7 @@
+prefix: https://d37ci6vzurychx.cloudfront.net
+file_type: parquet
+year: 2024
+month: 1
+bq_trips_records_dataset_id: trips_data_all
+bq_trips_records: trips_records
+bq_external_trips_records: external_trips_records

@@ -1,0 +1,18 @@
+docker exec -it dtc-de-airflow-webserver-1 /bin/bash
+
+delete all the containers:  docker rm -v -f $(docker ps -qa)
+delete all images: docker rmi -f $(docker images -aq)
+docker volume prune
+
+docker-compose build 
+docker-compose up airflow-init
+docker-compose up 
+
+pip show
+
+check the size of disk:
+docker system prune -a
+
+ Environment variable '_AIRFLOW_DB_UPGRADE' is deprecated please use '_AIRFLOW_DB_MIGRATE' instead
+
+docker exec -it sh
