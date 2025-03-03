@@ -6,10 +6,20 @@ import logging
 logger = logging.getLogger(__name__)
 
 # NOTE: takes 20 mins, at an upload speed of 800kbps. Faster if your internet has a better upload speed
-
-
 GCS_CLIENT = storage.Client()
-def upload_from_directory(directory_path: str, dest_bucket_name: str, dest_blob_name: str):
+def upload_to_gcs(bucket, object_name, local_file):
+    # WORKAROUND to prevent timeout for files > 6 MB on 800 kbps upload speed.
+    # (Ref: https://github.com/googleapis/python-storage/issues/74)
+    storage.blob._MAX_MULTIPART_SIZE = 5 * 1024 * 1024  # 5 MB
+    storage.blob._DEFAULT_CHUNKSIZE = 5 * 1024 * 1024  # 5 MB
+    # End of Workaround
+    bucket = GCS_CLIENT.bucket(bucket)
+
+    blob = bucket.blob(object_name)
+    blob.upload_from_filename(local_file)
+
+
+def upload_mult_file_from_directory(directory_path: str, dest_bucket_name: str):
     rel_paths = glob.glob(directory_path + '/**', recursive=True)
     bucket = GCS_CLIENT.get_bucket(dest_bucket_name)
     for local_file in rel_paths:

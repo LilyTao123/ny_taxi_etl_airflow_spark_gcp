@@ -10,7 +10,7 @@ current_file_path = os.path.abspath(__file__)
 parent_directory = os.path.dirname(os.path.dirname(current_file_path))
 sys.path.append(parent_directory)
 
-from common.file_config import File_Config
+from common.file_config import Taxi_Config
 from common.schema import GREEN_SCHEMA
 
 logger = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ spark = SparkSession.builder \
                 .appName('orgnise_green_dataset') \
                 .getOrCreate()
 
-taxi = File_Config('green')
+taxi = Taxi_Config('green')
 schema = GREEN_SCHEMA
 
 dataset = spark.read.parquet(f'{taxi.local_input_path}/{taxi.table_name}', schema = schema)

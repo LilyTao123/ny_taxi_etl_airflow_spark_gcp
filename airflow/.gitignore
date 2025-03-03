@@ -2,3 +2,5 @@
 taxi_data
 logs
 .env
+common/__pycache__/
+dags/__pycache__/

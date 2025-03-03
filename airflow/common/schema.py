@@ -8,7 +8,7 @@ GREEN_SCHEMA = types.StructType([
     types.StructField("RatecodeID", types.IntegerType(), True),
     types.StructField("PULocationID", types.IntegerType(), True),
     types.StructField("DOLocationID", types.IntegerType(), True),
-    types.StructField("passenger_count", types.IntegerType(), True),
+    types.StructField("passenger_count", types.DoubleType(), True),
     types.StructField("trip_distance", types.DoubleType(), True),
     types.StructField("fare_amount", types.DoubleType(), True),
     types.StructField("extra", types.DoubleType(), True),
@@ -28,7 +28,7 @@ YELLOW_SCHEMA = types.StructType([
     types.StructField("VendorID", types.IntegerType(), True),
     types.StructField("tpep_pickup_datetime", types.TimestampType(), True),
     types.StructField("tpep_dropoff_datetime", types.TimestampType(), True),
-    types.StructField("passenger_count", types.IntegerType(), True),
+    types.StructField("passenger_count", types.DoubleType(), True),
     types.StructField("trip_distance", types.DoubleType(), True),
     types.StructField("RatecodeID", types.IntegerType(), True),
     types.StructField("store_and_fwd_flag", types.StringType(), True),
@@ -51,4 +51,8 @@ common_cols = [
     "fare_amount", "extra", "mta_tax", "tip_amount", "tolls_amount", "improvement_surcharge",
     "total_amount", "congestion_surcharge",
     'service_type', 'pickup_month'
+]
+
+ZONE_SCHEMA = [
+    
 ]

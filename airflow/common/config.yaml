@@ -1,7 +1,11 @@
-prefix: https://d37ci6vzurychx.cloudfront.net
+taxi_prefix: https://d37ci6vzurychx.cloudfront.net
 file_type: parquet
-year: 2024
-month: 1
+year: 2023
+month: 12
 bq_trips_records_dataset_id: trips_data_all
 bq_trips_records: trips_records
 bq_external_trips_records: external_trips_records
+taxi_zone_ingest_url: https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv
+taxi_zone_output_path: data/taxi_zone
+taxi_zone_table_name: taxi_zone.parquet
+bq_external_taxi_zone: external_taxi_zone

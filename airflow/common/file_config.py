@@ -11,7 +11,7 @@ with open('common/config.yaml', 'r') as f:
 # Data ingest setting
 year = config['year']
 month = config['month']
-url_prefix = config['prefix']
+taxi_url_prefix = config['taxi_prefix']
 file_type = config['file_type']
 
 BUCKET = os.environ.get("GCP_GCS_BUCKET")
@@ -21,7 +21,13 @@ bq_trips_records = config['bq_trips_records']
 bq_trips_records_dataset_id = config['bq_trips_records_dataset_id']
 bq_external_trips_records = config['bq_external_trips_records']
 
-class File_Config:
+# taxi zone setting
+taxi_zone_ingest_url = config['taxi_zone_ingest_url']
+taxi_zone_output_path = config['taxi_zone_output_path']
+taxi_zone_table_name = config['taxi_zone_table_name']
+bq_external_taxi_zone = config['bq_external_taxi_zone']
+
+class Taxi_Config:
     def __init__(self, service_type, year=year, month=month):
 
         self.service_type = service_type
@@ -35,7 +41,7 @@ class File_Config:
 
         self.table_name = f'{service_type}_tripdata_{year}-{month:02d}.{file_type}'
 
-        self.ingestion_url = f'{url_prefix}/trip-data/{self.table_name}' 
+        self.ingestion_url = f'{taxi_url_prefix}/trip-data/{self.table_name}' 
 
         self.gcp_path = f'gs://{BUCKET}/pq/{service_type}/'
 

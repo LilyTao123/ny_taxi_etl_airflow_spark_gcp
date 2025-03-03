@@ -12,7 +12,7 @@ current_file_path = os.path.abspath(__file__)
 parent_directory = os.path.dirname(os.path.dirname(current_file_path))
 sys.path.append(parent_directory)
 
-from common.file_config import File_Config
+from common.file_config import Taxi_Config
 from common.schema import YELLOW_SCHEMA
 
 logger = logging.getLogger(__name__)
@@ -24,7 +24,7 @@ spark = SparkSession.builder \
                 .appName('orgnise_yellow_dataset') \
                 .getOrCreate()
 
-taxi = File_Config('yellow')
+taxi = Taxi_Config('yellow')
 schema = YELLOW_SCHEMA
 
 dataset = spark.read.parquet(f'{taxi.local_input_path}/{taxi.table_name}', schema = schema)

@@ -17,17 +17,17 @@ sys.path.append(parent_directory)
 
 from common.file_config import *
 from common.bq_queries import *
-from gcp_operations import upload_from_directory, update_bigquery_external_table
+from gcp_operations import upload_mult_file_from_directory, update_bigquery_external_table
 
 PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 BUCKET = os.environ.get("GCP_GCS_BUCKET")
 
 # dataset setting
 green_service_type = 'green'
-green = File_Config(green_service_type)
+green = Taxi_Config(green_service_type)
 
 yellow_service_type = 'yellow'
-yellow = File_Config(yellow_service_type)
+yellow = Taxi_Config(yellow_service_type)
 
 default_args = {
     "owner": "airflow",
@@ -74,21 +74,19 @@ with DAG(
 
     local_green_to_gcs_task = PythonOperator(
         task_id="local_green_to_gcs_task",
-        python_callable=upload_from_directory,
+        python_callable=upload_mult_file_from_directory,
         op_kwargs={
             "directory_path": green.local_output_path,
-            "dest_bucket_name": BUCKET,
-            "dest_blob_name": green.gcp_path
+            "dest_bucket_name": BUCKET
         },
     )
 
     local_yellow_to_gcs_task = PythonOperator(
         task_id="local_yellow_to_gcs_task",
-        python_callable=upload_from_directory,
+        python_callable=upload_mult_file_from_directory,
         op_kwargs={
             "directory_path": yellow.local_output_path,
-            "dest_bucket_name": BUCKET,
-            "dest_blob_name": yellow.gcp_path
+            "dest_bucket_name": BUCKET
         },
     )
 
@@ -114,4 +112,15 @@ with DAG(
         },
     )
 
-    [download_green_dataset_task >> spark_green_orgnise >> local_green_to_gcs_task , download_yellow_dataset_task >> spark_yellow_orgnise >> local_yellow_to_gcs_task] >> bq_create_external_trips_records >> bq_partitioned_trips_records
+    bq_trips_daily_revenue = BigQueryInsertJobOperator(
+        task_id='bq_trips_daily_revenue',
+        configuration={
+            'query': {
+                'query': create_trips_daily_revenue,
+                'useLegacySql': False,
+            }
+        },
+    )
+
+
+    [download_green_dataset_task >> spark_green_orgnise >> local_green_to_gcs_task , download_yellow_dataset_task >> spark_yellow_orgnise >> local_yellow_to_gcs_task] >> bq_create_external_trips_records >> bq_partitioned_trips_records >> bq_trips_daily_revenue
