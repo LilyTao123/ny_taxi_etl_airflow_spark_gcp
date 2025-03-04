@@ -2,7 +2,7 @@
 This project tried to build a ETL process for new york taxi data,  and develop a dashboard to analyse revenue change. 
 The aim of this project is mainly to practise all the things I learned from course [Data Engineer Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp)   
 
-![Workflow](https://github.com/LilyTao123/ny_taxi_etl_airflow_spark_gcp/media/workflow.png)
+![Workflow](media/workflow.png)
 
 # Tech tools
 Airflow -- control ETL process  
