@@ -8,3 +8,4 @@ pytest
 pyspark
 requests
 sqlalchemy
+graphviz
