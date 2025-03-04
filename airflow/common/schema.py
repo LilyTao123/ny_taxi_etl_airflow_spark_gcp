@@ -1,6 +1,7 @@
 from pyspark.sql import types 
 
 GREEN_SCHEMA = types.StructType([
+    types.StructField('unique_row_id', types.StringType(), True),
     types.StructField("VendorID", types.IntegerType(), True),
     types.StructField("lpep_pickup_datetime", types.TimestampType(), True),
     types.StructField("lpep_dropoff_datetime", types.TimestampType(), True),
@@ -25,7 +26,7 @@ GREEN_SCHEMA = types.StructType([
 
 
 YELLOW_SCHEMA = types.StructType([
-    types.StructField("VendorID", types.IntegerType(), True),
+    types.StructField('unique_row_id', types.StringType(), True),
     types.StructField("tpep_pickup_datetime", types.TimestampType(), True),
     types.StructField("tpep_dropoff_datetime", types.TimestampType(), True),
     types.StructField("passenger_count", types.IntegerType(), True),

@@ -6,4 +6,8 @@
     run airflow scheduler start
 
 3. unable to use spark solved: add package in requirement -> ensure docker-compose have dockerfile, and right loction
-4. to utilise spark: solved: airflow version and python version, forgot to add JAVE_HOME
+4. to utilise spark: solved: airflow version and python version, forgot to add JAVE_HOME  
+
+Need to do  
+1. add unique row ID
+2. passenger count
