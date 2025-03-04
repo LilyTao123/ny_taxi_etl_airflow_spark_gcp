@@ -1,4 +1,8 @@
-
+# Tech tools
+Airflow -- control ETL process  
+Docker -- configure env  
+Bigquery -- datawarehouse  
+Looker -- dashborad
 # Presentation
 Page 1 -- NY Taxi Monthly Revenue Overview
 ![page1](https://github.com/user-attachments/assets/1f7c13f3-543a-4e34-a3b5-5666fa9e5190)
