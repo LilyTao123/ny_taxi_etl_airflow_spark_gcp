@@ -1,6 +1,7 @@
 # Tech tools
 Airflow -- control ETL process  
 Docker -- configure env  
+Spark -- clean and oragnise data  
 Bigquery -- datawarehouse  
 Looker -- dashborad
 # Presentation
