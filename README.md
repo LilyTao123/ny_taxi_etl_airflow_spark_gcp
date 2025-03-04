@@ -1,6 +1,11 @@
 # Project info
 This project tried to build a ETL process for new york taxi data,  and develop a dashboard to analyse revenue change. 
-The aim of this project is mainly to practise all the things I learned from course [Data Engineer Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp) 
+The aim of this project is mainly to practise all the things I learned from course [Data Engineer Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp)   
+```
+  mermaid
+  flowchart ETL
+  airflow --> bigquery
+```
 # Tech tools
 Airflow -- control ETL process  
 Docker -- configure env  
