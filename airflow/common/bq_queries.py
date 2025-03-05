@@ -3,12 +3,20 @@ import os
 
 PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 
-create_partitioned_trip_records_table_query = f""" 
-    CREATE OR REPLACE TABLE {PROJECT_ID}.{bq_trips_records_dataset_id}.{bq_trips_records} 
+create_partitioned_green_trip_records_table_query = f""" 
+    CREATE OR REPLACE TABLE {PROJECT_ID}.{bq_trips_records_dataset_id}.{bq_green_tripdata} 
     PARTITION BY DATE(pickup_datetime) 
     CLUSTER BY pickup_month, PULocationID
     AS
-    SELECT * FROM {PROJECT_ID}.{bq_trips_records_dataset_id}.{bq_external_trips_records};
+    SELECT * FROM {PROJECT_ID}.{bq_trips_records_dataset_id}.{bq_external_green_tripdata};
+""" 
+
+create_partitioned_yellow_trip_records_table_query = f""" 
+    CREATE OR REPLACE TABLE {PROJECT_ID}.{bq_trips_records_dataset_id}.{bq_yellow_tripdata} 
+    PARTITION BY DATE(pickup_datetime) 
+    CLUSTER BY pickup_month, PULocationID
+    AS
+    SELECT * FROM {PROJECT_ID}.{bq_trips_records_dataset_id}.{bq_external_yellow_tripdata};
 """ 
 
 

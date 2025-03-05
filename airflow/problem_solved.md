@@ -9,5 +9,5 @@
 4. to utilise spark: solved: airflow version and python version, forgot to add JAVE_HOME  
 
 Need to do  
-1. add unique row ID
-2. passenger count
+1. split green and yellow to 2 tables
+2. create delta (change-based) extraction in airflow 

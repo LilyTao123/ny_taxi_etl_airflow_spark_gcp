@@ -90,23 +90,45 @@ with DAG(
         },
     )
 
-    bq_create_external_trips_records = PythonOperator(
-        task_id="create_trips_records",
+    bq_create_external_green_trips_records = PythonOperator(
+        task_id="create_external_green_trips_records",
         python_callable = update_bigquery_external_table,
         op_kwargs={
             'BUCKET': BUCKET, 
-            'PREFIX': 'pq', 
+            'PREFIX': 'pq/green', 
             'PROJECT_ID': PROJECT_ID, 
             'DATASET_ID': bq_trips_records_dataset_id, 
-            'EXTERNAL_TABLE_ID': bq_external_trips_records
+            'EXTERNAL_TABLE_ID': bq_external_green_tripdata
         },
     )
 
-    bq_partitioned_trips_records = BigQueryInsertJobOperator(
-        task_id='bq_partitioned_trips_records',
+    bq_create_external_yellow_trips_records = PythonOperator(
+        task_id="create_external_yellow_trips_records",
+        python_callable = update_bigquery_external_table,
+        op_kwargs={
+            'BUCKET': BUCKET, 
+            'PREFIX': 'pq/yellow', 
+            'PROJECT_ID': PROJECT_ID, 
+            'DATASET_ID': bq_trips_records_dataset_id, 
+            'EXTERNAL_TABLE_ID': bq_external_yellow_tripdata
+        },
+    )
+
+    bq_partitioned_green_trips_records = BigQueryInsertJobOperator(
+        task_id='bq_partitioned_green_trips_records',
         configuration={
             'query': {
-                'query': create_partitioned_trip_records_table_query,
+                'query': create_partitioned_green_trip_records_table_query,
+                'useLegacySql': False,
+            }
+        },
+    )
+
+    bq_partitioned_yellow_trips_records = BigQueryInsertJobOperator(
+        task_id='bq_partitioned_yellow_trips_records',
+        configuration={
+            'query': {
+                'query': create_partitioned_yellow_trip_records_table_query,
                 'useLegacySql': False,
             }
         },
@@ -123,4 +145,4 @@ with DAG(
     )
 
 
-    [download_green_dataset_task >> spark_green_orgnise >> local_green_to_gcs_task , download_yellow_dataset_task >> spark_yellow_orgnise >> local_yellow_to_gcs_task] >> bq_create_external_trips_records >> bq_partitioned_trips_records >> bq_trips_daily_revenue
+    [download_green_dataset_task >> spark_green_orgnise >> local_green_to_gcs_task >> bq_create_external_green_trips_records >> bq_partitioned_green_trips_records, download_yellow_dataset_task >> spark_yellow_orgnise >> local_yellow_to_gcs_task >> bq_create_external_yellow_trips_records >> bq_partitioned_yellow_trips_records] >> bq_trips_daily_revenue

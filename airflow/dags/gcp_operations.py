@@ -38,15 +38,11 @@ def upload_mult_file_from_directory(directory_path: str, dest_bucket_name: str):
 def get_parquet_uris(BUCKET, PREFIX):
     """Fetch all Parquet file URIs from the GCS bucket."""
     # client = storage.Client()
-    GREEN_PREFIX = f'{PREFIX}/green'
-    YELLOW_PREFIX = f'{PREFIX}/yellow'
-    green_blobs = GCS_CLIENT.list_blobs(BUCKET, prefix=GREEN_PREFIX)
-    yellow_blobs = GCS_CLIENT.list_blobs(BUCKET, prefix=YELLOW_PREFIX)
+    blobs = GCS_CLIENT.list_blobs(BUCKET, prefix=PREFIX)
     
-    g_uris = [f"gs://{BUCKET}/{blob.name}" for blob in green_blobs if blob.name.endswith(".parquet")]
-    y_uris = [f"gs://{BUCKET}/{blob.name}" for blob in yellow_blobs if blob.name.endswith(".parquet")]
+    uris = [f"gs://{BUCKET}/{blob.name}" for blob in blobs if blob.name.endswith(".parquet")]
     
-    return g_uris + y_uris
+    return uris
 
 # @functions_framework.cloud_event
 def update_bigquery_external_table(BUCKET, PREFIX, PROJECT_ID, DATASET_ID, EXTERNAL_TABLE_ID):

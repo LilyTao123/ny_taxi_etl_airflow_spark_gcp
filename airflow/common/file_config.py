@@ -17,9 +17,14 @@ file_type = config['file_type']
 BUCKET = os.environ.get("GCP_GCS_BUCKET")
 
 # BigQuery file setting 
-bq_trips_records = config['bq_trips_records']
+# bq_trips_records = config['bq_trips_records']
 bq_trips_records_dataset_id = config['bq_trips_records_dataset_id']
-bq_external_trips_records = config['bq_external_trips_records']
+
+bq_external_green_tripdata = config['bq_external_green_tripdata']
+bq_external_yellow_tripdata = config['bq_external_yellow_tripdata']
+
+bq_green_tripdata = config['bq_green_tripdata'] 
+bq_yellow_tripdata = config['bq_yellow_tripdata']
 
 # taxi zone setting
 taxi_zone_ingest_url = config['taxi_zone_ingest_url']
