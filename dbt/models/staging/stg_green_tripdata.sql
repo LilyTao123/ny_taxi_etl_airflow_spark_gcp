@@ -52,7 +52,7 @@ renamed as (
     where rn = 1
 )
 
-select * from renamed
+select * from rename
 
 {% if var('is_test_run', default=true) %}
 
