@@ -1,0 +1,2 @@
+- name: terraform-plan-storage
+  uses: cloudposse/github-action-terraform-plan-storage@v2.0.0
